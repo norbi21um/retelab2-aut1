@@ -24,3 +24,6 @@ logging:
     org:
       hibernate:
         type: trace
+        
+# Email
+# https://mailtrap.io/ hasznalataval

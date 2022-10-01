@@ -2,13 +2,14 @@ package hu.bme.aut.retelab2.mapper;
 
 import hu.bme.aut.retelab2.domain.Ad;
 import hu.bme.aut.retelab2.dto.AdDTO;
+import hu.bme.aut.retelab2.dto.AdDTO.AdDTOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-01T16:35:15+0200",
+    date = "2022-10-01T21:12:33+0200",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.14.1 (Amazon.com Inc.)"
 )
 public class AdMapperImpl implements AdMapper {
@@ -19,19 +20,19 @@ public class AdMapperImpl implements AdMapper {
             return null;
         }
 
-        AdDTO adDTO = new AdDTO();
+        AdDTOBuilder adDTO = AdDTO.builder();
 
-        adDTO.setId( entity.getId() );
-        adDTO.setTitle( entity.getTitle() );
-        adDTO.setPrice( entity.getPrice() );
-        adDTO.setDateCreated( entity.getDateCreated() );
-        adDTO.setExpiration( entity.getExpiration() );
+        adDTO.id( entity.getId() );
+        adDTO.title( entity.getTitle() );
+        adDTO.price( entity.getPrice() );
+        adDTO.dateCreated( entity.getDateCreated() );
+        adDTO.expiration( entity.getExpiration() );
         List<String> list = entity.getTags();
         if ( list != null ) {
-            adDTO.setTags( new ArrayList<String>( list ) );
+            adDTO.tags( new ArrayList<String>( list ) );
         }
 
-        return adDTO;
+        return adDTO.build();
     }
 
     @Override

@@ -4,15 +4,16 @@ C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\repositor
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\domain\Ad.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\mapper\SubscriptionMapper.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\domain\Subscription.java
-C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\dto\SendMailRequest.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\dto\SubscriptionDTO.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\service\helper\SecretGenerator.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\repository\AdRepository.java
+C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\dto\EmailRequest.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\service\SubscriptionService.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\Application.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\controller\AdController.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\controller\NoteController.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\config\AdvertisementConfig.java
+C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\dto\NotifySubscribersRequest.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\mapper\AdMapper.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\repository\NoteRepository.java
 C:\Users\norbi\Desktop\retelab2-aut1\src\main\java\hu\bme\aut\retelab2\service\AdService.java

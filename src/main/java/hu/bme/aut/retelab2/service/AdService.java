@@ -2,6 +2,7 @@ package hu.bme.aut.retelab2.service;
 
 import hu.bme.aut.retelab2.domain.Ad;
 import hu.bme.aut.retelab2.dto.AdDTO;
+import hu.bme.aut.retelab2.dto.NotifySubscribersRequest;
 import hu.bme.aut.retelab2.mapper.AdMapper;
 import hu.bme.aut.retelab2.repository.AdRepository;
 import hu.bme.aut.retelab2.service.helper.SecretGenerator;
@@ -51,11 +52,15 @@ public class AdService {
             throw new IllegalArgumentException("Bad session token!");
         }
         AdDTO changeDTO = adMapper.mapToAdDTO(adRepository.save(ad));
-        subscriptionService.sendEmails(adDTO.getId());
+        subscriptionService.notifySubscibers(
+                NotifySubscribersRequest.builder()
+                        .item(adDTO)
+                        .build()
+        );
         return changeDTO;
     }
 
-    private Ad findAdById(Long id) throws IllegalArgumentException {
+    public Ad findAdById(Long id) throws IllegalArgumentException {
         return adRepository.findById(id)
                 .orElseThrow(IllegalArgumentException::new);
     }

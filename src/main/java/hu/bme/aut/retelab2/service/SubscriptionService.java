@@ -1,8 +1,13 @@
 package hu.bme.aut.retelab2.service;
 
 import hu.bme.aut.retelab2.domain.Subscription;
+import hu.bme.aut.retelab2.dto.AdDTO;
+import hu.bme.aut.retelab2.dto.EmailRequest;
+import hu.bme.aut.retelab2.dto.NotifySubscribersRequest;
 import hu.bme.aut.retelab2.dto.SubscriptionDTO;
+import hu.bme.aut.retelab2.mapper.AdMapper;
 import hu.bme.aut.retelab2.mapper.SubscriptionMapper;
+import hu.bme.aut.retelab2.repository.AdRepository;
 import hu.bme.aut.retelab2.repository.SubscriptionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +20,6 @@ import java.util.List;
 public class SubscriptionService {
 
     @Autowired
-    private AdService adService;
-
-    @Autowired
     private SubscriptionRepository subscriptionRepository;
 
     @Autowired
@@ -26,6 +28,9 @@ public class SubscriptionService {
     @Autowired
     private MailService mailService;
 
+    @Autowired
+    private AdMapper adMapper;
+
 
     public SubscriptionDTO subscribe(SubscriptionDTO subscription) {
         return subscriptionMapper.mapToSubscriptionDTO(
@@ -33,13 +38,19 @@ public class SubscriptionService {
         );
     }
 
-    public void sendEmails(long adId){
-        subscriptionRepository.findAllByAdId(adId).forEach(sub -> {
-            mailService.sendEmail(sub.getEmail(), sub.getFistName(), sub.getLastName());
-        });
+    public void notifySubscibers(NotifySubscribersRequest request){
+        mailService.sendEmail(
+                EmailRequest.builder()
+                        .subscriptions(findSubscribers(request.getItem()))
+                        .build()
+        );
     }
 
-    private List<SubscriptionDTO> findSubscribers(long adId){
-        return subscriptionMapper.mapToSubscriptionDTOList(subscriptionRepository.findAllByAdId(adId));
+    private List<SubscriptionDTO> findSubscribers(AdDTO adDTO){
+        return subscriptionMapper.mapToSubscriptionDTOList(
+                subscriptionRepository.findAllByAdId(
+                        adMapper.mapToAd(adDTO)
+                )
+        );
     }
 }

@@ -1,20 +1,41 @@
 package hu.bme.aut.retelab2.mapper;
 
+import hu.bme.aut.retelab2.domain.Ad;
 import hu.bme.aut.retelab2.domain.Subscription;
 import hu.bme.aut.retelab2.dto.SubscriptionDTO;
+import hu.bme.aut.retelab2.service.AdService;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.List;
 
 @Mapper
-public interface SubscriptionMapper {
+public abstract class SubscriptionMapper {
 
-    SubscriptionDTO mapToSubscriptionDTO(Subscription entity);
+    @Autowired
+    private AdService adService;
 
-    Subscription mapToSubscription(SubscriptionDTO dto);
+    @Mapping(target = "adId", expression = "java(entity.getAd().getId())")
+    public abstract SubscriptionDTO mapToSubscriptionDTO(Subscription entity);
 
-    List<SubscriptionDTO> mapToSubscriptionDTOList(List<Subscription> entity);
+    @Mapping(target = "ad", ignore = true)
+    public abstract Subscription mapToSubscriptionWithoutAd(SubscriptionDTO dto);
 
-    List<Subscription> mapToSubscriptionList(List<SubscriptionDTO> entity);
+    @Named(value = "useMe")
+    public Subscription mapToSubscription(SubscriptionDTO dto){
+        Subscription entity = mapToSubscriptionWithoutAd(dto);
+        entity.setAd(adService.findAdById(dto.getAdId()));
+        return entity;
+    }
+
+    public abstract List<SubscriptionDTO> mapToSubscriptionDTOList(List<Subscription> entity);
+
+    @IterableMapping(qualifiedByName = "useMe")
+    public abstract List<Subscription> mapToSubscriptionList(List<SubscriptionDTO> entity);
 }
 

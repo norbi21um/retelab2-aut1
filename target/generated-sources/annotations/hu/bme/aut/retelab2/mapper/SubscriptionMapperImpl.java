@@ -3,16 +3,17 @@ package hu.bme.aut.retelab2.mapper;
 import hu.bme.aut.retelab2.domain.Subscription;
 import hu.bme.aut.retelab2.domain.Subscription.SubscriptionBuilder;
 import hu.bme.aut.retelab2.dto.SubscriptionDTO;
+import hu.bme.aut.retelab2.dto.SubscriptionDTO.SubscriptionDTOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-01T16:35:14+0200",
+    date = "2022-10-01T21:18:05+0200",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.14.1 (Amazon.com Inc.)"
 )
-public class SubscriptionMapperImpl implements SubscriptionMapper {
+public class SubscriptionMapperImpl extends SubscriptionMapper {
 
     @Override
     public SubscriptionDTO mapToSubscriptionDTO(Subscription entity) {
@@ -20,19 +21,20 @@ public class SubscriptionMapperImpl implements SubscriptionMapper {
             return null;
         }
 
-        SubscriptionDTO subscriptionDTO = new SubscriptionDTO();
+        SubscriptionDTOBuilder subscriptionDTO = SubscriptionDTO.builder();
 
-        subscriptionDTO.setId( entity.getId() );
-        subscriptionDTO.setFistName( entity.getFistName() );
-        subscriptionDTO.setLastName( entity.getLastName() );
-        subscriptionDTO.setEmail( entity.getEmail() );
-        subscriptionDTO.setAdId( entity.getAdId() );
+        subscriptionDTO.id( entity.getId() );
+        subscriptionDTO.fistName( entity.getFistName() );
+        subscriptionDTO.lastName( entity.getLastName() );
+        subscriptionDTO.email( entity.getEmail() );
 
-        return subscriptionDTO;
+        subscriptionDTO.adId( entity.getAd().getId() );
+
+        return subscriptionDTO.build();
     }
 
     @Override
-    public Subscription mapToSubscription(SubscriptionDTO dto) {
+    public Subscription mapToSubscriptionWithoutAd(SubscriptionDTO dto) {
         if ( dto == null ) {
             return null;
         }
@@ -43,7 +45,6 @@ public class SubscriptionMapperImpl implements SubscriptionMapper {
         subscription.fistName( dto.getFistName() );
         subscription.lastName( dto.getLastName() );
         subscription.email( dto.getEmail() );
-        subscription.adId( dto.getAdId() );
 
         return subscription.build();
     }

@@ -33,4 +33,6 @@ public class Ad {
     @ElementCollection
     private List<String> tags;
 
+    @OneToMany(mappedBy = "ad")
+    private List<Subscription> subscriptions;
 }

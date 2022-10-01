@@ -1,6 +1,6 @@
 package hu.bme.aut.retelab2.service;
 
-import hu.bme.aut.retelab2.dto.SendMailRequest;
+import hu.bme.aut.retelab2.dto.EmailRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +19,20 @@ public class MailService {
 
 
 
-    public void sendEmail(String to, String firstName, String lastName){
-        log.info("Email sent to " + to);
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("info@advert.com");
-        message.setTo(to);
-        message.setSubject("Ad alert");
-        message.setText(
-                "Dear " + firstName + "!\n\n" +
-                        "The  " +
-                        ""
-        );
-        this.emailSender.send(message);
+    public void sendEmail(EmailRequest request){
+        request.getSubscriptions().forEach(subscriptionDTO -> {
+            log.info("Email sent to " + subscriptionDTO.getEmail());
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("info@advert.com");
+            message.setTo(subscriptionDTO.getEmail());
+            message.setSubject("Ad alert");
+            message.setText(
+                    "Dear " + subscriptionDTO.getFistName() + " " + subscriptionDTO.getLastName() + "!\n\n" +
+                            "The  " +
+                            ""
+            );
+            this.emailSender.send(message);
+        });
     }
 
 }

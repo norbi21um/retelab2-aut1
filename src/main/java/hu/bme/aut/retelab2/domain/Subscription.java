@@ -3,9 +3,7 @@ package hu.bme.aut.retelab2.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -25,6 +23,8 @@ public class Subscription {
 
     private String email;
 
-    private Long adId;
+    @ManyToOne
+    @JoinColumn(name="ad_id")
+    private Ad ad;
 
 }
