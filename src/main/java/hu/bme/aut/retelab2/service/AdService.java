@@ -62,21 +62,19 @@ public class AdService {
 
     public Ad findAdById(Long id) throws IllegalArgumentException {
         return adRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(()-> new IllegalArgumentException("Incorrect ad id!"));
     }
 
     public List<AdDTO> findByTag(String tag){
         return adMapper.mapToAdDTOList(adRepository.findAdByTags(tag));
     }
 
-    //TODO: Itt még valami baj van
-    @Transactional
-    //@Scheduled(fixedDelay = 6000)
-    public void deleteExpiredAds(){
-        LocalDateTime now = LocalDateTime.now();
 
+    @Transactional
+    @Scheduled(fixedDelay = 6000)
+    public void deleteExpiredAds(){
         adRepository.findAll().stream()
-                .filter(i -> now.isAfter(i.getExpiration()))
+                .filter(i -> LocalDateTime.now().isAfter(i.getExpiration()))
                 .forEach(ad -> adRepository.delete(ad));
     }
 }

@@ -1,7 +1,5 @@
 package hu.bme.aut.retelab2.controller;
 
-import hu.bme.aut.retelab2.domain.Ad;
-import hu.bme.aut.retelab2.domain.Subscription;
 import hu.bme.aut.retelab2.dto.AdDTO;
 import hu.bme.aut.retelab2.dto.SubscriptionDTO;
 import hu.bme.aut.retelab2.service.AdService;

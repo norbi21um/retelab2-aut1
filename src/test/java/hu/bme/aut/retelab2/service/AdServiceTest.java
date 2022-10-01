@@ -26,10 +26,10 @@ import static org.junit.Assert.*;
 public class AdServiceTest {
 
     static final double MIN_VALUE = 0;
-
     static final double MAX_VALUE = 10000;
-
     static final String SESSION_TOKEN = "SDU642";
+    static final String INVALID_ID_EXCEPTION = "Incorrect ad id!";
+    static final String INVALID_SESSION_TOKEN_EXCEPTION = "Bad session token!";
 
     @Autowired
     private AdRepository adRepository;
@@ -112,14 +112,34 @@ public class AdServiceTest {
         assertEquals("New Title", response.getTitle());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void test_updateAd_invalidSessionToken(){
+    @Test
+    public void test_updateAd_invalidAdId(){
         assertEquals(0, adRepository.count());
         Ad ad = adRepository.save(createAd());
         assertEquals(1, adRepository.count());
         ad.setId(432L);
 
-        adService.updateAd(adMapper.mapToAdDTO(ad));
+        try{
+            adService.updateAd(adMapper.mapToAdDTO(ad));
+            fail();
+        } catch (IllegalArgumentException e){
+            assertEquals(INVALID_ID_EXCEPTION, e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_updateAd_invalidSessionToken(){
+        assertEquals(0, adRepository.count());
+        Ad ad = adRepository.save(createAd());
+        assertEquals(1, adRepository.count());
+        ad.setSessionToken("biztos nem lesz ez jo");
+
+        try{
+            adService.updateAd(adMapper.mapToAdDTO(ad));
+            fail();
+        } catch (IllegalArgumentException e){
+            assertEquals(INVALID_SESSION_TOKEN_EXCEPTION, e.getMessage());
+        }
     }
 
     @Test

@@ -62,7 +62,6 @@ public class SubscriptionServiceTest {
                 .lastName("Teszt")
                 .email("elek.teszt@gmail.com")
                 .ad(ad)
-//                .adId(adId)
                 .build();
     }
 

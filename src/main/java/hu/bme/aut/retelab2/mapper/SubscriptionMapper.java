@@ -1,6 +1,6 @@
 package hu.bme.aut.retelab2.mapper;
 
-import hu.bme.aut.retelab2.domain.Ad;
+
 import hu.bme.aut.retelab2.domain.Subscription;
 import hu.bme.aut.retelab2.dto.SubscriptionDTO;
 import hu.bme.aut.retelab2.service.AdService;
@@ -10,8 +10,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.List;
 
 @Mapper
